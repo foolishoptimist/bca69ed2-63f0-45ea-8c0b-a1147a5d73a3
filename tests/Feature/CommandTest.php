@@ -9,12 +9,12 @@ use Tests\TestCase;
 class CommandTest extends TestCase
 {
     /**
-     * Test AssessmentReports Command <Student1 1>
+     * Test AssessmentReports Command <student1 1>
      */
     public function test_assessment_reports_diagnostic(): void
     {
 
-        $this->artisan('app:assessment-report Student1 1')
+        $this->artisan('app:assessment-report student1 1')
         ->expectsOutput("Tony Stark recently completed Numeracy assessment on 16th December 2021 10:46 AM
 He got 15 questions right out of 16. Details by strand given below:
 
@@ -25,12 +25,12 @@ Statistics and Probability: 3 out of 4 correct")
     }
 
     /**
-     * Test AssessmentReports Command <Student1 2>
+     * Test AssessmentReports Command <student1 2>
      */
     public function test_assessment_reports_progress(): void
     {
 
-        $this->artisan('app:assessment-report Student1 2')
+        $this->artisan('app:assessment-report student1 2')
         ->expectsOutput("Tony Stark has completed Numeracy assessment 3 times in total. Date and raw score given below:
 
 Date: 14th December 2019, Raw Score: 6 out of 16
@@ -42,12 +42,12 @@ Tony Stark got 9 more correct in the recent completed assessment than the oldest
     }
 
     /**
-     * Test AssessmentReports Command <Student1 3>
+     * Test AssessmentReports Command <student1 3>
      */
     public function test_assessment_reports_feedback(): void
     {
 
-        $this->artisan('app:assessment-report Student1 3')
+        $this->artisan('app:assessment-report student1 3')
         ->expectsOutput("Tony Stark recently completed Numeracy assessment on 16th December 2021 10:46 AM
 He got 15 questions right out of 16. Feedback for wrong answers given below
 
