@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Student;
 use Illuminate\Console\Command;
 
 class AssessmentReport extends Command
@@ -28,6 +29,12 @@ class AssessmentReport extends Command
     protected $studentIDPrompt = "Student ID:";
     protected $reportIDPrompt = "Report to generate (1 for Diagnostic, 2 for Progress, 3 for Feedback):";
 
+    protected $reportTypes = [
+        1 => 'Diagnostic',
+        2 => 'Progress',
+        3 => 'Feedback'
+    ];
+
     /**
      * Execute the console command.
      */
@@ -39,8 +46,16 @@ class AssessmentReport extends Command
         if ($studentID == -1) {
             $studentID = $this->ask($this->studentIDPrompt);
         }
+        while (!Student::findById($studentID)) {
+            $this->error('Incorrect Student ID');
+            $studentID = $this->ask($this->studentIDPrompt);
+        }
         $reportID = $this->argument('report_id');
         if ($reportID == -1) {
+            $reportID = $this->ask($this->reportIDPrompt);
+        }
+        while (!in_array($reportID, array_keys($this->reportTypes))) {
+            $this->error('Incorrect Report Option');
             $reportID = $this->ask($this->reportIDPrompt);
         }
 
