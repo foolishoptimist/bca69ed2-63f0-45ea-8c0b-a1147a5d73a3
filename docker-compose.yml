@@ -9,7 +9,7 @@ services:
       - DEBUG=1
     volumes:
       - .:/var/www/html
-    command: php artisan list
+    command: php artisan app:assessment-report
   test:
     image: web
     build:
