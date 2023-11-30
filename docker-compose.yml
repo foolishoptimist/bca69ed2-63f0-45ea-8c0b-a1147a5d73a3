@@ -1,0 +1,22 @@
+version: '1'
+services:
+  app:
+    image: web
+    build:
+      context: .
+      dockerfile: /.docker/build/Dockerfile
+    environment:
+      - DEBUG=1
+    volumes:
+      - .:/var/www/html
+    command: php artisan list
+  test:
+    image: web
+    build:
+      context: .
+      dockerfile: /.docker/build/Dockerfile
+    environment:
+      - DEBUG=1
+    volumes:
+      - .:/var/www/html
+    command: php artisan test
