@@ -2,42 +2,51 @@
 
 namespace App\Models;
 
+use App\Models\JsonModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+class Student extends JsonModel
 {
     use HasFactory;
 
-    protected $keyType = "string";
     protected $fillable = [
-        'id',
         'firstName',
         'lastName',
         'yearLevel'
     ];
 
     /**
-     * Override all function to return static data
+     * Return path to model data
      */
-    public static function all($columns = []) {
-        $studentsData = json_decode(file_get_contents(base_path('database/data/students.json')), true);
-        return collect($studentsData)->map(function($data) { return new Student($data); });
+    public static function getJsonDataPath() {
+        return 'database/data/students.json';
+    }
+
+    public function getName() {
+        return $this->firstName . ' '. $this->lastName;
     }
 
     /**
-     * Function to filter data and return subset
+     * Generate Diagnostic Report
      */
-    public static function where($key, $value) {
-        return self::all()->filter(function($model) use ($key, $value) {
-            return $model->getAttribute($key) == $value;
-        });
+    public function diagnosticReport() {
+        $output = "";
+        return $output;
     }
 
     /**
-     * Override all function to return static data
+     * Generate Progress Report
      */
-    public static function findById($id) {
-        return self::where('id', $id)->first();
+    public function progressReport() {
+        $output = '';
+        return $output;
+    }
+
+    /**
+     * Generate Feedback Report
+     */
+    public function feedbackReport() {
+        $output = "";
+        return $output;
     }
 }

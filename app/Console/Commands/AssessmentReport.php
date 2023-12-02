@@ -40,17 +40,19 @@ class AssessmentReport extends Command
      */
     public function handle()
     {
-        $this->info("Please enter the following");
-
         $studentID = $this->argument('student_id');
+        $reportID = $this->argument('report_id');
+        if ($studentID == -1 || $reportID == -1) {
+            $this->info("Please enter the following");
+        }
+
         if ($studentID == -1) {
             $studentID = $this->ask($this->studentIDPrompt);
         }
-        while (!Student::findById($studentID)) {
+        while (!$student = Student::findById($studentID)) {
             $this->error('Incorrect Student ID');
             $studentID = $this->ask($this->studentIDPrompt);
         }
-        $reportID = $this->argument('report_id');
         if ($reportID == -1) {
             $reportID = $this->ask($this->reportIDPrompt);
         }
@@ -59,6 +61,18 @@ class AssessmentReport extends Command
             $reportID = $this->ask($this->reportIDPrompt);
         }
 
-        //GenerateReport($studentID, $reportID)
+        switch ($reportID) {
+            case 1: 
+                $this->info($student->diagnosticReport());
+                break;
+            case 2:
+                $this->info($student->progressReport());
+                break;
+            case 3:
+                $this->info($student->feedbackReport());
+                break;
+            default:
+        }
+        
     }
 }
