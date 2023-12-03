@@ -11,10 +11,10 @@ services:
       - .:/var/www/html
     command: php artisan app:assessment-report
   test:
-    image: web
+    image: test
     build:
       context: .
-      dockerfile: /.docker/build/Dockerfile
+      dockerfile: /.docker/build/Dockerfile.test
     environment:
       - DEBUG=1
     volumes:
