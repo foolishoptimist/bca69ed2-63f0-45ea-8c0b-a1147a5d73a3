@@ -23,3 +23,4 @@ WORKDIR /app
 
 COPY --from=deps /app /app
 
+RUN php -r "file_exists('.env') || copy('.env.test', '.env');"
